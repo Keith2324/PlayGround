@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#10110f">
+  <title>ASHENREACH — The Hollow March</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" aria-label="Ashenreach game world"></canvas>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Ashenreach home"><span class="brand-mark">✦</span><span>ASHEN<span class="brand-muted">REACH</span><small>THE HOLLOW MARCH</small></span></a>
+      <div class="realm"><span class="realm-dot"></span> REALM <b>VEILFALL</b><i>•</i> <span id="clock">00:00</span></div>
+      <div class="top-actions"><button class="icon-btn" id="sound-btn" title="Toggle sound">♫</button><button class="icon-btn" id="map-btn" title="Map (M)">⌖</button><div class="avatar-mini">✦</div><div class="player-tag"><b>Wanderer</b><small>LEVEL <span id="level-top">01</span> · NIGHTWARDEN</small></div></div>
+    </header>
+    <section class="status-panel glass">
+      <div class="portrait"><span>♙</span><i class="online-dot"></i><b id="level">01</b></div>
+      <div class="status-main"><div class="name-row"><b>THE WANDERER</b><span>✦ <span id="power">18</span></span></div><div class="meter health"><span id="health-fill"></span><label>♥ <span id="health-text">100 / 100</span></label></div><div class="meter mana"><span id="mana-fill"></span><label>✧ <span id="mana-text">60 / 60</span></label></div><div class="meter xp"><span id="xp-fill"></span></div></div>
+    </section>
+    <aside class="quest-panel glass"><div class="section-kicker"><span>✦ ACTIVE QUEST</span><button class="dots" aria-label="Quest options">•••</button></div><h2>A debt in ash</h2><p>The dead stir beneath the old stones. Thin their ranks before dusk claims the road.</p><div class="quest-progress"><span class="quest-icon">⚔</span><span>Slay <b>Hollow Wraiths</b><small><span id="kills">0</span> / 5 defeated</small></span><i id="quest-check">○</i></div><div class="reward"><span>REWARD</span><b>✧ 120 XP <i>·</i> ◈ 35</b></div></aside>
+    <aside class="right-rail"><div class="minimap-card glass"><div class="section-kicker"><span>HOLLOW MARCH</span><span class="live-dot"></span></div><canvas id="minimap" width="180" height="142"></canvas><div class="map-legend"><span><i class="legend-player"></i> YOU</span><span><i class="legend-enemy"></i> HOSTILE</span></div></div><div class="objective glass"><span class="objective-icon">☽</span><div><small>REGION</small><b>The Weeping Fen</b><span>Danger · <em>Moderate</em></span></div></div></aside>
+    <div id="toast" class="toast"></div>
+    <div id="interaction" class="interaction"><span>◉</span> Press <b>F</b> to interact</div>
+    <section class="bottom-ui">
+      <div class="chat glass"><div class="chat-tabs"><button class="selected">LOCAL</button><button>WHISPERS</button><span>⌄</span></div><div id="chat-lines"><p><b class="system">SYSTEM</b> <span>Welcome to the Hollow March, wanderer.</span></p><p><b class="world-chat">[WORLD]</b> <span>Seren: Anyone seen the ferryman?</span></p></div><form id="chat-form"><span>›</span><input id="chat-input" autocomplete="off" placeholder="Say something..." maxlength="90"><button aria-label="Send chat">↵</button></form></div>
+      <div class="action-area"><div class="target-bar" id="target-bar"><span>☠</span><div><b id="target-name">HOLLOW WRAITH</b><i><em id="target-health"></em></i></div><small id="target-level">LV. 3</small></div><div class="action-row"><button class="action-slot potion" id="potion" title="Use healing draught (H)"><span>♜</span><small>H</small><i>3</i></button><button class="action-slot active" id="basic" title="Strike (click or Space)"><span>⚔</span><small>SPACE</small></button><button class="action-slot" id="skill-q" title="Ashen bolt (Q)"><span>✦</span><small>Q</small><i class="cooldown"></i></button><button class="action-slot" id="skill-e" title="Veilstep (E)"><span>◈</span><small>E</small><i class="cooldown"></i></button><button class="action-slot" id="skill-r" title="Dread nova (R)"><span>☽</span><small>R</small><i class="cooldown"></i></button><span class="action-divider"></span><button class="action-slot utility" id="inventory-btn" title="Inventory (I)"><span>▤</span><small>I</small></button><button class="action-slot utility" id="character-btn" title="Character (C)"><span>♙</span><small>C</small></button></div><div class="xp-label"><span>EXPERIENCE</span><b><span id="xp-num">0</span> / <span id="xp-next">250</span></b></div></div>
+      <div class="quick-info"><span><b id="gold">◈ 35</b><small>YOUR PURSE</small></span><span class="social"><b>◎ 12</b><small>ONLINE HERE</small></span></div>
+    </section>
+    <div class="touch-controls"><div class="dpad"><button data-dir="up">▲</button><div><button data-dir="left">◀</button><button data-dir="down">▼</button><button data-dir="right">▶</button></div></div><button class="touch-attack" id="touch-attack">⚔</button></div>
+    <div class="modal-backdrop" id="modal-backdrop"><div class="modal glass"><button id="modal-close" class="modal-close">✕</button><div id="modal-content"></div></div></div>
+    <div class="help-hint"><span>WASD</span> Move <i>·</i> <span>CLICK</span> Attack <i>·</i> <span>Q E R</span> Abilities</div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
